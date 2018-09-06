@@ -141,7 +141,7 @@ def sign_metadata(repomdfile):
     """Requires a proper ~/.rpmmacros file. See <http://fedoranews.org/tchung/gpg/>"""
     if options.gpg_cmd:
         cmd = options.gpg_cmd
-    else
+    else:
         cmd = 'gpg'
 
     cmd = [cmd, "--detach-sign", "--armor", repomdfile]
