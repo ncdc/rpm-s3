@@ -14,11 +14,11 @@ import yum
 import boto
 import subprocess
 import pexpect
-import createrepo
 
 lib_root = os.path.dirname(os.path.dirname(__file__))
 
-
+sys.path.insert(1, os.path.join(lib_root, "vendor/createrepo"))
+import createrepo
 
 # Hack for creating s3 urls
 urlparse.uses_relative.append('s3')
