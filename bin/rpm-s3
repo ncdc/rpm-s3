@@ -126,12 +126,12 @@ def get_rpm_gpg_opts():
     if options.gpg_cmd:
         optlist.append('--define "%__gpg {}"'.format(options.gpg_cmd))
     if options.signing-key:
-        optlist.append('--define "%_gpg_name {}"'.format(options.signing-key))
+        optlist.append('--define "%_gpg_name {}"'.format(options.signing_key))
     return optlist
 
 def get_gpg_opts():
     if options.signing-key:
-        return ["--local-user", options.signing-key]
+        return ["--local-user", options.signing_key]
             
 
 def sign(rpmfile):
