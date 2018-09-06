@@ -2,7 +2,7 @@ FROM centos:7
 
 RUN yum update -y 
 RUN yum install -y deltarpm python-deltarpm
-RUN yum install -y createrepo python-createrepo
+RUN yum install -y createrepo
 
 RUN curl "https://bootstrap.pypa.io/get-pip.py" | python
 
