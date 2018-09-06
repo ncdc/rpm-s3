@@ -142,7 +142,7 @@ def sign(rpmfile):
     logging.info(cmd)
     try:
         subprocess.check_call(cmd)
-        logging.info("Successfully signed repository metadata file")
+        logging.info("Successfully signed rpm file")
     except subprocess.CalledProcessError, e:
         print "Unable to sign package '%s' - %s" % (rpmfile, child.before)
         logging.error("Unable to sign package: %s", e)
