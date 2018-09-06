@@ -121,11 +121,22 @@ def getclient(base, host_url):
         client = boto.s3.connect_to_region(loc)
     return client.get_bucket(options.bucket)
 
+def get_rpm_gpg_opts():
+    if options.gpg_cmd and options.signing-key:
+        gpgmacro  = '--define "%__gpg {}"'.format(options.gpg_cmd)
+        skeymacro = '--define "%_gpg_name {}"'.format(options.signing-key) 
+        return [gpgmacro, skeymacro]
+
+def get_gpg_opts():
+    if options.signing-key:
+        return ["--default-key", options.signing-key]
+            
 
 def sign(rpmfile):
     """Requires a proper ~/.rpmmacros file. See <http://fedoranews.org/tchung/gpg/>"""
     # TODO: check if file is indeed signed
-    cmd = "rpm --resign '%s'" % rpmfile
+    cmd = ["rpm", "--resign", rpmfile] + get_rpm_gpg_opts()
+    cmd = " ".join(cmd)
     logging.info(cmd)
     try:
         child = pexpect.spawn(cmd)
@@ -144,7 +155,8 @@ def sign_metadata(repomdfile):
     else:
         cmd = 'gpg'
 
-    cmd = [cmd, "--detach-sign", "--armor", repomdfile]
+    cmd = [cmd, "--detach-sign", "--armor", repomdfile] + get_gpg_opts()
+    cmd = " ".join(cmd)
     logging.info(cmd)
     try:
         subprocess.check_call(cmd)
@@ -263,6 +275,7 @@ if __name__ == '__main__':
     parser.add_option('--visibility', default='private')
     parser.add_option('-s', '--sign', action='count', default=0)
     parser.add_option('--gpg_cmd', default=None)
+    parser.add_option('--signing-key', default=None)
     parser.add_option('-l', '--logfile')
     parser.add_option('-d', '--delete', action='store_true', default=False)
     parser.add_option('-r', '--region')
