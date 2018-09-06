@@ -13,11 +13,9 @@ import collections
 import yum
 import boto
 import subprocess
+import pexpect
 
 lib_root = os.path.dirname(os.path.dirname(__file__))
-
-sys.path.insert(1, os.path.join(lib_root, "vendor/pexpect"))
-import pexpect
 
 sys.path.insert(1, os.path.join(lib_root, "vendor/createrepo"))
 import createrepo
