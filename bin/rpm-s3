@@ -156,7 +156,6 @@ def sign_metadata(repomdfile):
         cmd = 'gpg'
 
     cmd = [cmd, "--detach-sign", "--armor", repomdfile] + get_gpg_opts()
-    cmd = " ".join(cmd)
     logging.info(cmd)
     try:
         subprocess.check_call(cmd)
